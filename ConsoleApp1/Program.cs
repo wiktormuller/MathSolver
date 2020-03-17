@@ -6,11 +6,11 @@ namespace ConsoleApp1
     {
         static void Main(string[] args)
         {
-            Console.Write("---------- MathSolver ----------");
+            Console.WriteLine("---------- MathSolver ----------");
             Console.Write("Chose one of 10 options: ");
             var option = Console.ReadKey();
 
-            UserInterface.ChoseOption(option);
+            UserInterface.ChoseOption((int)option.Key);
         }
     }
 }
