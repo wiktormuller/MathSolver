@@ -8,8 +8,9 @@ namespace ConsoleApp1
     {
         public static double[] Read()
         {
-            var line = Console.ReadLine();
+            string line = Console.ReadLine();
             string[] split = line.Split(new Char[] {' ', ':', '\t'});
+ 
             double[] values = Array.ConvertAll(split, new Converter<string, double>(Double.Parse)); //it is error prone
 
             return values;

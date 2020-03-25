@@ -7,10 +7,22 @@ namespace ConsoleApp1
         static void Main(string[] args)
         {
             Console.WriteLine("---------- MathSolver ----------");
-            Console.Write("Chose one of 10 options: ");
-            var option = Console.ReadKey();
+            
+            while(true)
+            {
+                Console.Write("\nChose one of 10 options: ");
+                string input = Console.ReadLine();
 
-            UserInterface.ChoseOption((int)option.Key);
+                try
+                {
+                    int option = Int32.Parse(input);
+                    UserInterface.ChoseOption(option);
+                }
+                catch (FormatException)
+                {
+                    Console.WriteLine("It is not digit.");
+                }
+            }
         }
     }
 }

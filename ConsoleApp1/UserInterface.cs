@@ -8,9 +8,9 @@ namespace ConsoleApp1
     {
         public static void ChoseOption(int option)
         {
-            switch(option)  //readkey does not work for 10th option
+            switch(option)
             {
-                case 49:
+                case 1:
                     Console.WriteLine("\nFind Min Value from sequence: ");
                     var values1 = Sequence.Read();
                     Console.WriteLine(MathSolver.Min(values1));
@@ -18,7 +18,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 50:
+                case 2:
                     Console.WriteLine("\nSort in descending the following sequence: ");
                     var values2 = Sequence.Read();
                     MathSolver.Sort(values2);
@@ -27,7 +27,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 51:
+                case 3:
                     Console.WriteLine("\nShypotenuse length from 2D vector: ");
                     var values3 = Sequence.Read();
                     Console.WriteLine(MathSolver.Hypotenus(values3));
@@ -35,7 +35,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 52:
+                case 4:
                     Console.WriteLine("\nStandard deviation for the following sequence: ");
                     var values4 = Sequence.Read();
                     Console.WriteLine(MathSolver.StandardDeviation(values4));
@@ -43,7 +43,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 53:
+                case 5:
                     Console.WriteLine("\nRevert the following sequence: ");
                     var values5 = Sequence.Read();
                     MathSolver.Reverse(values5);
@@ -52,7 +52,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 54:
+                case 6:
                     Console.WriteLine("\nCheck if the number is prime: ");
                     var values6 = Sequence.Read();
                     Console.WriteLine(MathSolver.IsPrime(values6));
@@ -60,7 +60,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 55:    //field
+                case 7:
                     Console.WriteLine("\nField of convex polygon from vectors: ");
 
                     //HOW MANY POINTS WILL BE TYPED
@@ -82,14 +82,14 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 56:    //n^2 and n^3 equations
+                case 8: //n^2 and n^3 equations
                     Console.WriteLine("\nSolve third degree equation: ");
                     var values8 = Sequence.Read();
 
                     Console.ReadKey();
                     break;
 
-                case 57:
+                case 9:
                     Console.WriteLine("\nResult of 1*2^2 + 2*3^2 + 3*4^2 + ... + n(n+1)^2 for the particular n: ");
                     var values9 = Sequence.Read();
                     Console.WriteLine(MathSolver.Equation(values9));
@@ -97,7 +97,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 58:    //this option does not work
+                case 10:
                     Console.WriteLine("\nNumber of set bits in the particular number: ");
                     var values10 = Sequence.Read();
                     Console.WriteLine(MathSolver.SetBits(values10));
