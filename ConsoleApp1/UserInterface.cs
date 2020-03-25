@@ -62,7 +62,22 @@ namespace ConsoleApp1
 
                 case 55:    //field
                     Console.WriteLine("\nField of convex polygon from vectors: ");
-                    var values7 = Sequence.Read();
+
+                    //HOW MANY POINTS WILL BE TYPED
+                    Console.WriteLine("How many point: ");
+                    int number = Int32.Parse(Console.ReadLine());
+
+                    double[,] points = new double[number, 2];
+                    for (int i = 0; i < points.GetLength(0); i++)
+                    {
+                        Console.Write("Point " + i + " coordinate x: ");
+                        points[i, 0] = Int32.Parse(Console.ReadLine());
+                        Console.Write("Point " + i + " coordinate y: ");
+                        points[i, 1] = Int32.Parse(Console.ReadLine());
+                    }
+
+                    var field = MathSolver.CountField(number, points);
+                    Console.WriteLine("The whole field of that shape is: " + field);
 
                     Console.ReadKey();
                     break;
@@ -82,7 +97,7 @@ namespace ConsoleApp1
                     Console.ReadKey();
                     break;
 
-                case 58:
+                case 58:    //this option does not work
                     Console.WriteLine("\nNumber of set bits in the particular number: ");
                     var values10 = Sequence.Read();
                     Console.WriteLine(MathSolver.SetBits(values10));

@@ -107,5 +107,127 @@ namespace ConsoleApp1
 
             return numberOfSetBits;
         }
+
+        public static void Swap(ref double[] array, int first, int second)
+        {
+            double temp = array[first];
+            array[first] = array[second];
+            array[second] = temp;
+        }
+
+        public static double CountField(int number, double[,] points)
+        {
+            //MINIMAL AND MAXIMUM COORDINATES AMONG ALL POINTS
+            double minX = 0;
+            double maxX = 0;
+
+            double minY = 0;
+            double maxY = 0;
+
+            for (int i = 0; i < points.GetLength(0); i++)
+            {
+                if (points[i, 0] < minX)
+                    minX = points[i, 0];
+                if (points[i, 1] < minY)
+                    minY = points[i, 1];
+            }
+            for (int i = 0; i < points.GetLength(0); i++)
+            {
+                if (points[i, 0] > maxY)
+                    maxX = points[i, 0];
+                if (points[i, 1] > maxY)
+                    maxY = points[i, 1];
+            }
+
+            //CENTER POINT
+            double[] center = new double[2];
+            center[0] = (maxX - minX) / 2;
+            center[1] = (maxY - minY) / 2;
+
+            //ARCTAN()
+            double[] angles = new double[number];
+
+            for (int i = 0; i < points.GetLength(0); i++)   //0 0 0 2 2 2 2 0 SPECIFIC DATA WHERE THE FIRST IN NaN THE SECOND IS OVERFLOW
+            {
+                //if(points)	//is equal (0,0)
+                angles[i] = Math.Atan((points[i, 1]) / (points[i, 0])); //from center point
+
+                if (points[i, 0] > 0 && points[i, 1] > 0)   //FOR A POINT
+                {
+                    angles[i] *= 180 / Math.PI;
+                }
+                if (points[i, 0] < 0 && points[i, 1] > 0)   //FOR B POINT
+                {
+                    angles[i] += Math.PI;
+                    angles[i] *= 180 / Math.PI;
+                }
+                if (points[i, 0] < 0 && points[i, 1] < 0)   //FOR C POINT
+                {
+                    angles[i] += Math.PI;
+                    angles[i] *= 180 / Math.PI;
+                }
+                if (points[i, 0] > 0 && points[i, 1] < 0)   //FOR D POINT
+                {
+                    angles[i] += 2 * Math.PI;
+                    angles[i] *= 180 / Math.PI;
+                }
+            }
+
+            //PRINT ANGLES
+            //for (int i = 0; i < angles.Length; i++)
+            //{
+            //    Console.WriteLine(angles[i]);
+            //}
+
+            //SORT BOTH ARRAYS
+            double temporary = 0;
+            for (int i = 0; i < angles.Length; i++)
+            {
+                bool isAnyChange = false;
+                for (int j = 0; j < angles.Length - 1; j++)
+                {
+                    if (angles[j].CompareTo(angles[j + 1]) > 0)
+                    {
+                        isAnyChange = true;
+                        MathSolver.Swap(ref angles, j, j + 1);
+
+                        temporary = points[j, 0];
+                        points[j, 0] = points[j + 1, 0];
+                        points[j + 1, 0] = temporary;
+
+                        temporary = points[j, 1];
+                        points[j, 1] = points[j + 1, 1];
+                        points[j + 1, 1] = temporary;
+                    }
+                    if (!isAnyChange)    //IF IN THE SERIES THERE WAS NOT A CHANGE THEN ARRAY IS SORTED SO BREAK ANY COMPARISIONS
+                    {
+                        break;
+                    }
+                }
+            }
+
+            //CALCULATE FIELD OF TRIANGLES
+            double[] fields = new double[number];
+            for (int i = 0; i < fields.Length; i++)
+            {
+                if (i < (fields.Length - 1))
+                {
+                    fields[i] = 0.5 * Math.Abs((center[0] - points[i, 0]) * (points[i + 1, 1] - points[i, 1]) - (center[1] - points[i, 1]) * (points[i + 1, 0] - points[i, 0]));    //overflow i=4
+                }
+                else
+                {
+                    fields[i] = 0.5 * Math.Abs((center[0] - points[i, 0]) * (points[0, 1] - points[i, 1]) - (center[1] - points[i, 1]) * (points[0, 0] - points[i, 0]));    //change i+1 to 0 because of overflow
+                }
+            }
+
+            //CALCULATE FIELD OF WHOLE SHAPE
+            double wholeField = 0;
+            for (int i = 0; i < points.GetLength(0); i++)
+            {
+                wholeField += fields[i];
+            }
+
+            return wholeField;
+        }
     }
 }
