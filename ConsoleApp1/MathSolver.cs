@@ -229,5 +229,39 @@ namespace ConsoleApp1
 
             return wholeField;
         }
+        
+        public static void QuadraticEquation(double[] values)   //implement solution for Imagine numbers
+        {
+            if(values.Length > 3 || values.Length < 2)
+            {
+                Console.WriteLine("Wrong sequence of data.");
+            }
+            else
+            {
+                if (values[0] == 0)
+                {
+                    double solution = -values[1] / values[0];
+                }
+                else
+                {
+                    double discriminant = values[1] * values[1] - 4 * values[0] * values[2];    //b^2-4*a*c
+                    if (discriminant > 0)
+                    {
+                        double firstSolution = (-values[1] + Math.Sqrt(discriminant)) / (2 * values[0]);
+                        double secondSolution = (-values[1] - Math.Sqrt(discriminant)) / (2 * values[0]);
+                        Console.WriteLine($"The first solution: {firstSolution}, and the second: {secondSolution}.");
+                    }
+                    if (discriminant == 0)
+                    {
+                        double firstSolution = -values[1] / (2 * values[0]);
+                        Console.WriteLine($"The double solution: {firstSolution}.");
+                    }
+                    if (discriminant < 0)
+                    {
+                        Console.WriteLine("There is not solutions in Real set of numbers.");
+                    }
+                }
+            }
+        }
     }
 }

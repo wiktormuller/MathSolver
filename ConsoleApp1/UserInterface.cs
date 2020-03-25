@@ -83,8 +83,9 @@ namespace ConsoleApp1
                     break;
 
                 case 8: //n^2 and n^3 equations
-                    Console.WriteLine("\nSolve third degree equation: ");
+                    Console.WriteLine("\nSolve quadratic equation: ");
                     var values8 = Sequence.Read();
+                    MathSolver.QuadraticEquation(values8);
 
                     Console.ReadKey();
                     break;
