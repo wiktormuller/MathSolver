@@ -141,8 +141,9 @@ namespace ConsoleApp1
 
             //CENTER POINT
             double[] center = new double[2];
-            center[0] = (maxX - minX) / 2;
-            center[1] = (maxY - minY) / 2;
+            center[0] = (maxX - minX) / 4;
+            center[1] = (maxY - minY) / 4;  //why 4?
+            //Console.WriteLine("Center point: " + center[0] + ", " + center[1]);
 
             //ARCTAN()
             double[] angles = new double[number];
@@ -152,24 +153,53 @@ namespace ConsoleApp1
                 //if(points)	//is equal (0,0)
                 angles[i] = Math.Atan((points[i, 1]) / (points[i, 0])); //from center point
 
+                if (points[i, 0] == 0 && points[i, 1] == 0)
+                {
+                    angles[i] = 0;
+                    continue;
+                }
+                if (points[i,0] == 0 && points[i,1] > 0)
+                {
+                    angles[i] = 90;
+                    continue;
+                }
+                else if(points[i, 0] == 0 && points[i, 1] < 0)
+                {
+                    angles[i] = 270;
+                    continue;
+                }
+                if(points[i,0] > 0 && points[i, 1] == 0)
+                {
+                    angles[i] = 0;
+                    continue;
+                }
+                else if(points[i, 1] == 0 && points[i, 0] < 0)
+                {
+                    angles[i] = 180;
+                    continue;
+                }
                 if (points[i, 0] > 0 && points[i, 1] > 0)   //FOR A POINT
                 {
                     angles[i] *= 180 / Math.PI;
+                    continue;
                 }
                 if (points[i, 0] < 0 && points[i, 1] > 0)   //FOR B POINT
                 {
                     angles[i] += Math.PI;
                     angles[i] *= 180 / Math.PI;
+                    continue;
                 }
                 if (points[i, 0] < 0 && points[i, 1] < 0)   //FOR C POINT
                 {
                     angles[i] += Math.PI;
                     angles[i] *= 180 / Math.PI;
+                    continue;
                 }
                 if (points[i, 0] > 0 && points[i, 1] < 0)   //FOR D POINT
                 {
                     angles[i] += 2 * Math.PI;
                     angles[i] *= 180 / Math.PI;
+                    continue;
                 }
             }
 
@@ -212,13 +242,19 @@ namespace ConsoleApp1
             {
                 if (i < (fields.Length - 1))
                 {
-                    fields[i] = 0.5 * Math.Abs((center[0] - points[i, 0]) * (points[i + 1, 1] - points[i, 1]) - (center[1] - points[i, 1]) * (points[i + 1, 0] - points[i, 0]));    //overflow i=4
+                    fields[i] = 0.5 * Math.Abs((center[0] + points[i, 0]) * (points[i + 1, 1] - points[i, 1]) - (center[1] + points[i, 1]) * (points[i + 1, 0] - points[i, 0]));    //overflow i=4
                 }
                 else
                 {
-                    fields[i] = 0.5 * Math.Abs((center[0] - points[i, 0]) * (points[0, 1] - points[i, 1]) - (center[1] - points[i, 1]) * (points[0, 0] - points[i, 0]));    //change i+1 to 0 because of overflow
+                    fields[i] = 0.5 * Math.Abs((center[0] + points[i, 0]) * (points[0, 1] - points[i, 1]) - (center[1] + points[i, 1]) * (points[0, 0] - points[i, 0]));    //change i+1 to 0 because of overflow
                 }
             }
+
+            //PRINT FIELDS OF EVERY TRIANGLE
+            //for (int i = 0; i < angles.Length; i++)
+            //{
+            //    Console.WriteLine(fields[i]);
+            //}
 
             //CALCULATE FIELD OF WHOLE SHAPE
             double wholeField = 0;
